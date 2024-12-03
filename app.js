@@ -1,6 +1,5 @@
 const express = require('express');
 const session = require('express-session');
-const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -10,7 +9,7 @@ const port = process.env.PORT || 3000;
 const users = [];
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(session({
     secret: 'your-secret-key',
