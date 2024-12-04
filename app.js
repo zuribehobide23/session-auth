@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); //pasahitza zifratu / hash bat lortzea
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ const users = [];
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+//defektuzko kodea 
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
@@ -36,7 +38,7 @@ app.post('/register', async (req, res) => {
         if (users.find(user => user.username === username)) {
             return res.status(400).send('Username already exists');
         }
-
+        // Saiakera kopurua
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
         
@@ -89,7 +91,9 @@ app.get('/dashboard', (req, res) => {
 
 // Logout route
 app.get('/logout', (req, res) => {
+    //ezabatu
     req.session.destroy();
+    //hautazkoa
     res.redirect('/');
 });
 
